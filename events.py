@@ -17,6 +17,8 @@ options = [
     "./dataset/vampeta.jpg"
 ]
 
+vampetaco = ["quem", "queijo", "café", "e", "cafe", "ivone", "pix"]
+
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
@@ -26,6 +28,15 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    await message.author.send(file=discord.File(random.choice(options)))
+    # Para mandar com qualquer mensagem no channel
+    # await message.author.send(file=discord.File(random.choice(options)))
+
+    # Para mandar para uma mensagem em específico
+    # if message.content == 'vampeta!':
+    #   await message.author.send(file=discord.File(random.choice(options)))
+    
+    # Para enviar com um array de polavras chave
+    if any(word in message.content for word in vampetaco):
+      await message.author.send(file=discord.File(random.choice(options)))
 
 client.run(TOKEN)
